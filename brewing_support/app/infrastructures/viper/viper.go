@@ -11,7 +11,9 @@ import (
 func SetupAppConfig() {
 	// default setting
 	viper.SetDefault("mode", "production")
+	viper.SetDefault("httpDomain", "localhost")
 	viper.SetDefault("httpPort", "8080")
+	viper.SetDefault("couchDBPort", "5984")
 	viper.SetDefault("dbUrl", "127.0.0.1")
 	viper.SetDefault("dbPort", "5432")
 	viper.SetDefault("dbUser", "brewing_support")

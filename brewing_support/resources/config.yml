@@ -1,5 +1,7 @@
 mode: "production"
+httpDomain: "localhost"
 httpPort: "8080"
+couchDBPort: "5984"
 dbUrl: "brewing_support_db"
 dbPort: "5432"
 dbUser: "brewing_support"

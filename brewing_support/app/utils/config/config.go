@@ -8,8 +8,16 @@ func Mode() string {
 	return viper.GetString("mode")
 }
 
+func HttpDomain() string {
+	return viper.GetString("httpDomain")
+}
+
 func HttpPort() string {
 	return viper.GetString("httpPort")
+}
+
+func CouchDBPort() string {
+	return viper.GetString("couchDBPort")
 }
 
 func DbUrl() string {
