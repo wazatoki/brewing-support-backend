@@ -1,10 +1,10 @@
 package usecases
 
 import (
-	"errors"
-	"time"
 	"brewing_support/app/domain"
 	"brewing_support/app/utils/config"
+	"errors"
+	"time"
 
 	"github.com/dgrijalva/jwt-go"
 )
@@ -23,7 +23,7 @@ func Login(staffRepo loginRepo, id string, pass string) (*domain.Staff, string, 
 	}
 
 	if s.Password == pass {
-		token, generateError := generateToken(s.ID)
+		token, generateError := GenerateToken(s.ID)
 		if generateError != nil {
 			return nil, "", generateError
 		}
@@ -35,14 +35,33 @@ func Login(staffRepo loginRepo, id string, pass string) (*domain.Staff, string, 
 	return nil, "", errors.New("login incorrect")
 }
 
-func generateToken(id string) (string, error) {
+// GenerateToken create JWT token
+func GenerateToken(id string) (string, error) {
 	// Create token
 	token := jwt.New(jwt.SigningMethodHS256)
 
 	// Set claims
 	claims := token.Claims.(jwt.MapClaims)
 	claims["staffID"] = id
-	claims["exp"] = time.Now().Add(time.Hour * time.Duration(config.LoginExpTime())).Unix()
+	claims["exp"] = time.Now().Add(time.Minute * time.Duration(config.LoginExpTime())).Unix()
+
+	// Generate encoded token and send it as response.
+	t, err := token.SignedString([]byte(config.SecretKey()))
+	if err != nil {
+		return "", err
+	}
+	return t, nil
+}
+
+// GenerateRefreshToken create refresh token
+func GenerateRefreshToken(id string) (string, error) {
+	// Create token
+	token := jwt.New(jwt.SigningMethodHS256)
+
+	// Set claims
+	claims := token.Claims.(jwt.MapClaims)
+	claims["staffID"] = id
+	claims["exp"] = time.Now().Add(time.Hour * time.Duration(config.LoginRefreshExpTime())).Unix()
 
 	// Generate encoded token and send it as response.
 	t, err := token.SignedString([]byte(config.SecretKey()))

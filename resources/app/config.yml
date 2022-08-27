@@ -6,4 +6,5 @@ dbUser: "brewing_support"
 dbPassword: "brewing_support"
 dbName: "brewing_supportdb"
 secretKey: "secret"
-loginExpTime: 24
+loginExpTime: 5
+loginRefreshExpTime: 6

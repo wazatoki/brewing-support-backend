@@ -47,3 +47,7 @@ func SecretKey() string {
 func LoginExpTime() int64 {
 	return viper.GetInt64("loginExpTime")
 }
+
+func LoginRefreshExpTime() int64 {
+	return viper.GetInt64("loginRefreshExpTime")
+}

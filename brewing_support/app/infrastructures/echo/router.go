@@ -16,4 +16,5 @@ func defineRouting(e *echo.Echo) {
 	apiPath := "/api"
 	api := e.Group(apiPath)
 	api.Use(middleware.JWT([]byte("secret")))
+	api.POST("/refreshToken", handlers.RefreshToken)
 }
